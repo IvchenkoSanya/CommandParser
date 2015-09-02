@@ -1,6 +1,0 @@
-D:\CommandParser2\CommandParser\bin\Debug\CommandParser.exe.config
-D:\CommandParser2\CommandParser\bin\Debug\CommandParser.exe
-D:\CommandParser2\CommandParser\bin\Debug\CommandParser.pdb
-D:\CommandParser2\CommandParser\obj\Debug\CommandParser.csprojResolveAssemblyReference.cache
-D:\CommandParser2\CommandParser\obj\Debug\CommandParser.exe
-D:\CommandParser2\CommandParser\obj\Debug\CommandParser.pdb
