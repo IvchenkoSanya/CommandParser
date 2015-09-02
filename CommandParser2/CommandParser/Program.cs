@@ -20,9 +20,9 @@ namespace CommandParser
             }
         }
 
-        public void Print(string massage)
+        public void Print(string message)
         {
-            Console.Write("{0} ", massage);
+            Console.Write("{0} ", message);
         }
 
         public void Error(string value)
@@ -48,7 +48,7 @@ namespace CommandParser
                 for (var i = 0; i < words.Length; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(i+1 + ". Command -->  " + words[i] + "!");
+                    Console.WriteLine("Command -->  " + words[i] + "!");
                     Console.ForegroundColor = ConsoleColor.Gray;
 
                     switch (words[i])
