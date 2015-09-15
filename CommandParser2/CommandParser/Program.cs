@@ -7,7 +7,7 @@ namespace CommandParser
         public void Help()
         {
             Console.WriteLine(
-            "CommandParser.exe have this commands:\n\t /?, /help, -help \n\t -k key1 value1 key2 value2\n\t -ping \n\t -print<massage>");
+            "CommandParser.exe have this commands:\n\t /?, /help, -help \n\t -k key1 value1 key2 value2\n\t -ping \n\t -print<massage>\n\t esc, stop, end - exit");
         }
 
         public void Ping()
@@ -31,9 +31,8 @@ namespace CommandParser
             "Command <{0}> is not supported, use CommandParser.exe /? to see set of allowed commands", value);
         }
 
-        private static void Main()
+        public void Parse()
         {
-            var parser = new Program();
             Console.WriteLine("Hello. This is CommandParser.");
             Console.WriteLine("Please, enter data");
             while (true)
@@ -44,7 +43,7 @@ namespace CommandParser
                     continue;
                 }
                 line = line.ToLower();
-                var words = line.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+                var words = line.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 for (var i = 0; i < words.Length; i++)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -57,19 +56,20 @@ namespace CommandParser
                         case "/?":
                         case "-help":
                         case "/help":
-                            parser.Help();
+                        case "help":
+                            Help();
                             break;
                     }
                     switch (words[i])
                     {
                         case "-ping":
-                            parser.Ping();
+                            Ping();
                             Console.WriteLine();
                             break;
                         case "-print":
                             while (i + 1 < words.Length && !words[i + 1].StartsWith("-"))
                             {
-                                parser.Print(words[++i]);
+                                Print(words[++i]);
                             }
                             Console.WriteLine();
                             break;
@@ -90,12 +90,23 @@ namespace CommandParser
 
                             }
                             break;
+                        case "esc":
+                        case "stop":
+                        case "end":
+                            return;
                         default:
-                            parser.Error(words[i]);
+                            Error(words[i]);
                             break;
                     }
                 }
             }
+        }
+
+        private static void Main()
+        {
+            var parser = new Program();
+            parser.Parse();
+            
         }
     }
 }
