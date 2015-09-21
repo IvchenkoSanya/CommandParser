@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CommandParser
 {
-    internal class Program
+    public class Program
     {
         public void Help()
         {
@@ -29,6 +30,21 @@ namespace CommandParser
         {
             Console.WriteLine(
             "Command <{0}> is not supported, use CommandParser.exe /? to see set of allowed commands", value);
+        }
+        public string ValuesToLine(List<string> values)
+        {
+            string result = null;
+            int i = 0;
+            while (i + 1 < values.Count)
+            {
+                result += values[i] + " - " + values[i + 1] + "\n";
+                i += 2;
+            }
+            if (1 == values.Count % 2)
+            {
+                result += values[values.Count - 1] + " - null\n";
+            }
+            return result;
         }
 
         public void Parse()
@@ -74,22 +90,14 @@ namespace CommandParser
                             Console.WriteLine();
                             break;
                         case "-k":
+                            var values = new List<string>();
                             while (i + 1 < words.Length && !words[i + 1].StartsWith("-"))
                             {
-                                Console.Write(words[i + 1] + " - ");
-                                if (i + 2 < words.Length && !words[i + 2].StartsWith("-"))
-                                {
-                                    Console.WriteLine(words[i + 2]);
-                                    i += 2;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("null");
-                                    ++i;
-                                }
-
+                                values.Add(words[++i]);
                             }
+                            Console.Write(ValuesToLine(values));
                             break;
+
                         case "esc":
                         case "stop":
                         case "end":
@@ -100,13 +108,14 @@ namespace CommandParser
                     }
                 }
             }
+
         }
 
         private static void Main()
         {
             var parser = new Program();
             parser.Parse();
-            
+
         }
     }
 }
